@@ -1,0 +1,110 @@
+﻿@model HotelManagementSystem.Models.ReserveModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+@section Header{
+    <link href="~/bootstrap-datepicker/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet" />
+}
+
+
+<h1>Create</h1>
+
+<h4>ReserveModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GuestId" class="control-label"></label>
+                <select asp-for="GuestId" asp-items="@(new SelectList(@ViewBag.guest, "Id", "Name", "--Select--"))" class="form-control">
+                    <option>--Select--</option>
+                </select>
+                <span asp-validation-for="GuestId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoomId" class="control-label"></label>
+                <select asp-for="RoomId" asp-items="@(new SelectList(@ViewBag.room, "Id", "RoomName", "--Select--"))" class="form-control">
+                    <option>--Select--</option>
+                </select>
+                <span asp-validation-for="RoomId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReservationCode" class="control-label"></label>
+                <input asp-for="ReservationCode" class="form-control" />
+                <span asp-validation-for="ReservationCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckIn" class="control-label"></label>
+                <input asp-for="CheckIn" class="form-control Date" type="text" />
+                <span asp-validation-for="CheckIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckOut" class="control-label"></label>
+                <input asp-for="CheckOut" class="form-control Date" type="text" />
+                <span asp-validation-for="CheckOut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoOfNights" class="control-label"></label>
+                <input asp-for="NoOfNights" readonly="readonly" class="form-control" />
+                <span asp-validation-for="NoOfNights" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adults" class="control-label"></label>
+                <input asp-for="Adults" class="form-control" />
+                <span asp-validation-for="Adults" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Children" class="control-label"></label>
+                <input asp-for="Children" class="form-control" />
+                <span asp-validation-for="Children" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/bootstrap-datepicker/locales/bootstrap-datepicker.en-CA.min.js"></script>>
+    <script src="~/js/DatePicker-init.js"></script>
+
+}
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+        $("#CheckIn").change(function () {
+            $("#CheckOut").change(function () {
+
+                var checkIn = ($("#CheckIn").val()).toString();
+                var checkOut = ($("#CheckOut").val()).toString();
+                checkIn = checkIn[6] + checkIn[7] + checkIn[8] + checkIn[9] + checkIn[5] + checkIn[3] + checkIn[4] + checkIn[2] + checkIn[0] + checkIn[1];
+                checkOut = checkOut[6] + checkOut[7] + checkOut[8] + checkOut[9] + checkOut[5] + checkOut[3] + checkOut[4] + checkOut[2] + checkIn[0] + checkOut[1];
+                
+                //
+                const date1 = new Date(checkIn);
+                const date2 = new Date(checkOut);
+                const diffTime = (date2.getTime() - date1.getTime());
+                const diffDays = (diffTime /1000/60 / 60 / 24) - 10;
+                console.log(checkIn);
+                console.log(diffDays);
+                $("#NoOfNights").val(diffDays);
+                
+
+            });
+        });
+
+
+    });
+
+</script>
