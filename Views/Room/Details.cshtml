@@ -1,0 +1,58 @@
+﻿@model HotelManagementSystem.Models.ViewModel.RoomDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>RoomModel</h4>
+    <hr />
+    @{ 
+        if (ViewBag.message != null)
+        {<h2>@ViewBag.message</h2>}
+    }
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RoomModel.RoomName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RoomModel.RoomName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RoomModel.BuildingNo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RoomModel.BuildingNo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RoomTypeViewModel.Adults)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RoomTypeViewModel.Adults)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RoomTypeViewModel.Children)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RoomTypeViewModel.Children)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RoomTypeViewModel.StandardPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RoomTypeViewModel.StandardPrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RoomTypeViewModel.SinglePrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RoomTypeViewModel.SinglePrice)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.RoomModel.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
